@@ -1,5 +1,16 @@
+import PostsList from "./components/PostsList";
+import MainHeader from "./components/MainHeader";
+
 function App() {
-  return <h1>Hello World!</h1>;
+  return (
+    <>
+  <MainHeader />
+    <main>
+     <PostsList />
+      </main>
+      </>
+  );
 }
 
 export default App;
+ 
