@@ -1,7 +1,13 @@
 import classes from "./Modal.module.css";
 import { useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Modal({ children, onClose }) {
+  const navigate = useNavigate();
+  function closeHandler() {
+    navigate("..");
+  }
+
   const modalRef = useRef(null);
   useEffect(() => {
     function handleClickOutside(event) {
@@ -18,7 +24,7 @@ export default function Modal({ children, onClose }) {
 
   return (
     <>
-      <div className={classes.backdrop}>
+      <div className={classes.backdrop} onClick={closeHandler}>
         <dialog open={true} className={classes.modal} ref={modalRef}>
           {children}
         </dialog>
