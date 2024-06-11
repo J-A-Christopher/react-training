@@ -1,31 +1,20 @@
 import classes from "./Modal.module.css";
-import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Modal({ children, onClose }) {
+export default function Modal({ children }) {
   const navigate = useNavigate();
-  function closeHandler() {
-    navigate("..");
-  }
 
-  const modalRef = useRef(null);
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
-        onClose();
-      }
+  function closeHandler(event) {
+    const isClickedOutsideModal = !event.target.closest(`.${classes.modal}`);
+    if (isClickedOutsideModal) {
+      navigate("..");
     }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [onClose]);
+  }
 
   return (
     <>
       <div className={classes.backdrop} onClick={closeHandler}>
-        <dialog open={true} className={classes.modal} ref={modalRef}>
+        <dialog open={true} className={classes.modal}>
           {children}
         </dialog>
       </div>
